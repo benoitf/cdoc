@@ -1,0 +1,89 @@
+= Developing a Che Plugin documentation
+
+Florent BENOIT <fbenoit@redhat.com>
+v0.1, 2018-06-14
+
+:toc:
+:icons: font
+
+
+== Developing a Che Plugin
+
+Overview: Introduction to the extensibility of Eclipse Che
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Eclipse Che and the portable workspaces it's quite easy to make it extensible and there are several ways to extend Che.
+
+- Frontend or IDE that is running in your web browser can be extended dynamically by installing plug-ins.
+An example may be to update the status bar with the local time of your computer so everything need to run on the client's side.
+
+- Server-side of the IDE can also be extended dynamically.
+  For example, let say you want to create a plug-in that will replace a given string by another one on all the files of your workspace. Then, it's easy to register a server-side command that will do the job and you'll invoke the command with the command palette of the IDE. The server-side of the IDE using TypeScript/nodejs you've access to all these APIs easily.
+
+- Custom container. Let say you've a very handy docker image that is booting up your server coded using the last hype (or a very old) technology. Idea is to bring that container into the Eclipse Che workspace and then invoke commands on this server. As Che is container native, it's transparent to do that. It would have been more difficult without container approach as all required dependencies would have been installed on the runtime environment. Let say you need a Java JVM, with a container you're sure to provide the same runtime environment to all people. While if you rely on what is available on the current host, you may have issues like old version of Java or too recent version of Java already installed, etc.
+
+
+TODO: Add diagram
+
+
+
+Plugin Generator: How to use the plugin generator to scaffold a plugin
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Creating a scratch might be quite complicated as many files are required. By using a plugin generator, a plugin can be generated easily to scaffold your new idea of plug-in.
+The generator is using http://yeoman.io/[Yeoman] tool.
+
+Che generator can be installed by using the following command
+
+ $ npm install -g yo @wiptheia/generator-theia-plugin
+
+ 
+_Note: yo may be removed if already installed._
+
+Once the generator is setup, a new project can be generated using the following command:
+
+ $ yo @wiptheia/theia-plugin
+
+image::plugin-generator.png[Generator of plug-in]
+
+
+
+
+Developing a Plug-in: How to use Che to implement and run it
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+There is a special Che's stack to create a workspace with a `Hosted Mode`.
+Let's use this stack and then you'll have a workspace ready-to-go for developping a new IDE plugin.
+
+If Che is not installed on your computer, there is an online factory that will create the expected workspace on demand.
+https://che.openshift.io/f?name=theia-demo.2018051&user=fbenoit-1[Online Workspace to experiment Che plug-ins.]
+
+
+Once the workspace is created, the command used in the previous section to scaffold a project can be used directly. The generator is already installed in the running container.
+
+ $ yo @wiptheia/theia-plugin
+
+__note:__ the terminal can be found in New terminal menu
+
+
+Installing locally a Plugin: How to install the plugin locally
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+Publishing a Plugin: How to publish on the marketplace
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+Convert VsCode extension
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+Ideally, we should also be providing guidance on how a "VS Code extension" could be provided onto Eclipse Che.
+
+
+
+
+My first IDE plugin
+~~~~~~~~~~~~~~~~~~~
+
+Hello World: Plugin sample registering a new "Hello World" command and when executed adding an information message with "Hello World" displayed
